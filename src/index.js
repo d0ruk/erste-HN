@@ -10,7 +10,6 @@ import {
   // InfiniteScroll,
 } from "erste";
 
-import "./util/css/svgicons.css";
 import "./util/css/main.css";
 
 // import MainView from "./views/main-view";

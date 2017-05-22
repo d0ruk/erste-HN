@@ -110,7 +110,8 @@ module.exports = env => {
         minify: {
           collapseWhitespace: true,
           removeComments: true,
-          minifyJS: { comments: false },
+          minifyJS: true,
+          minifyCSS: true
         },
         env: isDev ? "development" : "production"
       }),
