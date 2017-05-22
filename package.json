@@ -1,0 +1,136 @@
+{
+  "name": "erste-HN",
+  "version": "0.0.3",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build": "webpack --hide-modules --env 'production'",
+    "dev": "webpack-dev-server --env 'development'"
+  },
+  "keywords": [
+    "erste",
+    "component",
+    "mobile",
+    "UI",
+    "hackernews",
+    "hacker",
+    "news"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "erste": "^1.2.9",
+    "mobx": "^3.1.9",
+    "reset-css": "^2.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "clean-webpack-plugin": "^0.1.16",
+    "css-loader": "^0.28.1",
+    "eslint": "^3.19.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "html-webpack-plugin": "^2.28.0",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.5",
+    "postcss-nested": "^2.0.2",
+    "style-loader": "^0.17.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.5.1",
+    "webpack-bundle-analyzer": "^2.8.2",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "modules": false,
+          "loose": true,
+          "debug": true
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-class-properties",
+      "transform-object-rest-spread"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 6,
+      "ecmaFeatures": {
+        "jsx": true,
+        "arrowFunctions": true,
+        "blockBindings": true,
+        "generators": false
+      }
+    },
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "strict": "off",
+      "indent": [
+        2,
+        2
+      ],
+      "quotes": [
+        2,
+        "double",
+        "avoid-escape"
+      ],
+      "curly": [
+        2,
+        "multi-line"
+      ],
+      "import/first": "off",
+      "comma-dangle": "off",
+      "no-unused-vars": "error",
+      "no-undef": "error",
+      "object-curly-spacing": "off",
+      "no-console": "warn",
+      "no-extra-semi": "warn",
+      "no-irregular-whitespace": "warn",
+      "no-unexpected-multiline": "warn",
+      "no-unreachable": "error",
+      "valid-typeof": "error",
+      "no-dupe-args": "error",
+      "no-dupe-keys": "error",
+      "default-case": "warn",
+      "eqeqeq": "warn",
+      "guard-for-in": "warn",
+      "no-extra-bind": "warn",
+      "no-invalid-this": "off",
+      "no-loop-func": "warn",
+      "no-throw-literal": "warn",
+      "no-useless-call": "warn",
+      "no-with": "error",
+      "radix": "off",
+      "no-shadow-restricted-names": "error",
+      "no-undef-init": "error",
+      "no-use-before-define": "error",
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ]
+    }
+  },
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ]
+}

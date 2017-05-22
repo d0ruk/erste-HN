@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <%if (htmlWebpackPlugin.options.env != "development") {%>
+      <% for (key in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet"></link>
+      <% } %>
+    <%}%>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <% for (key in htmlWebpackPlugin.files.js) { %>
+    <script src="<%= htmlWebpackPlugin.files.js[key] %>"></script>
+    <% } %>
+
+    <script>
+      (function () {
+        var src = "js/eruda.min.js";
+        if (!/eruda=true/.test(window.location.href)) return;
+        document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+      })();
+    </script>
+  </body>
+</html>
