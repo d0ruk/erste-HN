@@ -3,11 +3,12 @@
 const path = require("path");
 const autoprefixer = require("autoprefixer");
 const nested = require("postcss-nested");
-var atImport = require("postcss-import");
+const atImport = require("postcss-import");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = env => {
   const isDev = env === "development";
@@ -47,9 +48,7 @@ module.exports = env => {
               cacheDirectory: true,
             }
           },
-          include: [
-            path.resolve(__dirname, "src"),
-          ]
+          include: [path.resolve(__dirname, "src")]
         },
         {
           test: /\.svg$/,
@@ -136,6 +135,12 @@ module.exports = env => {
       ? [new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),]
       : [new CleanWebpackPlugin(["build/**/*.*"]),
+        new CopyWebpackPlugin([
+          {
+            from: path.resolve(path.dirname(require.resolve("eruda")), "eruda.min.js"),
+            to: "js/eruda.min.js"
+          },
+        ]),
         new webpack.LoaderOptionsPlugin({
           minimize: true,
           debug: false

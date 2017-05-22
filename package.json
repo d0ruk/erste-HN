@@ -1,6 +1,6 @@
 {
   "name": "erste-HN",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "private": true,
@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "erste": "^1.2.9",
+    "eruda": "^1.2.3",
     "mobx": "^3.1.9",
     "reset-css": "^2.2.0"
   },
@@ -35,6 +36,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.4.0",
     "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
     "eslint": "^3.19.0",
     "extract-text-webpack-plugin": "^2.1.0",
