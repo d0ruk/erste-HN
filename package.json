@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "build": "webpack --hide-modules --env 'production'",
-    "dev": "webpack-dev-server --env 'development'"
+    "dev": "webpack-dev-server --env 'development'",
+    "stats": "webpack --json --env 'production' > stats.json && webpack-bundle-analyzer stats.json"
   },
   "keywords": [
     "erste",
