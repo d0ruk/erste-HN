@@ -14,7 +14,7 @@ const shouldPolyfill = [
 ];
 
 loadPolyfills(shouldPolyfill)
-  .then(()=> {
+  .then(() => {
     new App();
   })
   .catch(console.error);
