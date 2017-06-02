@@ -1,13 +1,11 @@
 {
   "name": "erste-HN",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "",
   "main": "index.js",
-  "private": true,
   "scripts": {
     "build": "webpack --hide-modules --env 'production'",
-    "dev": "webpack-dev-server --env 'development'",
-    "stats": "webpack --json --env 'production' > stats.json && webpack-bundle-analyzer stats.json"
+    "dev": "webpack-dev-server --env 'development'"
   },
   "keywords": [
     "erste",
@@ -18,14 +16,16 @@
     "hacker",
     "news"
   ],
-  "author": "",
+  "author": "Doruk Kutlu",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.16.1",
     "erste": "^1.2.9",
     "eruda": "^1.2.3",
+    "es6-promise": "^4.1.0",
     "mobx": "^3.1.9",
-    "reset-css": "^2.2.0"
+    "object.observe": "^0.2.6",
+    "reset-css": "^2.2.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
@@ -34,7 +34,9 @@
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.4.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
@@ -46,9 +48,9 @@
     "postcss-loader": "^2.0.5",
     "postcss-nested": "^2.0.2",
     "style-loader": "^0.17.0",
+    "stylelint-config-standard": "^16.0.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",
-    "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-server": "^2.4.5"
   },
   "babel": {
@@ -56,13 +58,19 @@
       [
         "env",
         {
+          "targets": {
+            "browsers": [
+              ">1%"
+            ]
+          },
           "modules": false,
           "loose": true,
-          "debug": true
+          "useBuiltIns": true
         }
       ]
     ],
     "plugins": [
+      "syntax-dynamic-import",
       "transform-class-properties",
       "transform-object-rest-spread"
     ]
@@ -130,9 +138,29 @@
     }
   },
   "browserslist": [
-    ">1%",
-    "last 4 versions",
-    "Firefox ESR",
-    "not ie < 9"
-  ]
+    ">1%"
+  ],
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "indentation": 2,
+      "string-quotes": "double",
+      "no-duplicate-selectors": true,
+      "color-hex-case": "lower",
+      "selector-attribute-quotes": "always",
+      "selector-attribute-operator-space-before": "always",
+      "selector-attribute-operator-space-after": "always",
+      "declaration-block-trailing-semicolon": "always",
+      "declaration-colon-space-before": "never",
+      "declaration-colon-space-after": "always",
+      "property-no-vendor-prefix": true,
+      "value-no-vendor-prefix": true,
+      "number-leading-zero": "never",
+      "function-url-quotes": "always",
+      "at-rule-no-vendor-prefix": true,
+      "selector-no-vendor-prefix": true,
+      "media-feature-name-no-vendor-prefix": true,
+      "block-opening-brace-space-before": false
+    }
+  }
 }

@@ -1,33 +1,20 @@
-import {
-  // Component,
-  ViewManager,
-  // View,
-  // locale,
-  // Sidebar,
-  // TabView,
-  // NavBar,
-  // PullToRefresh,
-  // InfiniteScroll,
-} from "erste";
+import "util/css/main.css"
+import App from "components/app"
+import loadPolyfills from "loadpoly"
 
-import "./util/css/main.css";
+const shouldPolyfill = [
+  {
+    test: () => window.fetch,
+    load: import("whatwg-fetch")
+  },
+  // {
+  //   test: () => Object.observe,
+  //   load: import("object.observe")
+  // },
+];
 
-// import MainView from "./views/main-view";
-import Sidebar from "./components/sidebar"
-
-export default class Application {
-  constructor() {
-
-    const vm = new ViewManager();
-    // const mainView = new MainView(vm);
-    const sidebar = new Sidebar();
-
-    sidebar.vm = vm;
-    // sidebar.on("switchView", e => mainView.activateItemByName(e.view));
-    sidebar.render(document.body);
-
-    // vm.setCurrentView(mainView);
-  }
-}
-
-new Application();
+loadPolyfills(shouldPolyfill)
+  .then(()=> {
+    new App();
+  })
+  .catch(console.error);

@@ -1,14 +1,18 @@
 /* eslint-env node */
 
 const path = require("path");
+
 const autoprefixer = require("autoprefixer");
 const nested = require("postcss-nested");
+const cssnext = require("postcss-cssnext")({ features: { autoprefixer: false }});
 const atImport = require("postcss-import");
+
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 
 module.exports = env => {
   const isDev = env === "development";
@@ -19,9 +23,9 @@ module.exports = env => {
     entry: {
       main: isDev
       ? ["webpack-dev-server/client?http://localhost:7777",
-        "./src/index"]
-      : ["./src/index"],
-      vendor: ["erste", "mobx", "axios"]
+        "babel-polyfill", "./src/index"]
+      : ["es6-promise", "./src/index"],
+      vendor: ["erste", "mobx"]
     },
 
     output: {
@@ -33,15 +37,16 @@ module.exports = env => {
         ? "js/[name].map"
         : "js/[name]_[chunkhash].map",
       chunkFilename: isDev
-        ? "js/[id].chunk.js"
-        : "js/[id]_[chunkhash].chunk.js",
+        ? "js/[name].js"
+        : "js/[name]_[chunkhash].js",
+      hashDigestLength: 7,
       publicPath: "/"
     },
 
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.js$/,
           use: {
             loader: "babel-loader",
             options: {
@@ -87,16 +92,24 @@ module.exports = env => {
             use: [
               {
                 loader: "css-loader",
-                options: { sourceMap: true, importLoaders: 1 }
+                options: {
+                  importLoaders: 1,
+                  modules: true,
+                }
               },
               {
                 loader: "postcss-loader",
                 options: {
-                  plugins() { return [autoprefixer, nested, atImport] }
+                  plugins() {
+                    return [
+                      atImport({ addDependencyTo: webpack, path: [path.resolve(".", "src")] }),
+                      nested, cssnext, autoprefixer,
+                    ].filter(e => e);
+                  }
                 }
               }
             ]
-          })
+          }),
         },
       ]
     },
@@ -124,14 +137,16 @@ module.exports = env => {
           }
         }
       }),
+      new CaseSensitivePathsPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
         names: ["vendor"],
         minChunks: Infinity
       }),
       new ExtractTextPlugin({
-        filename: "css/[name]_[contenthash].css",
-        disable: isDev
-      })
+        filename: "css/[name]_[hash:7].css",
+        disable: isDev,
+      }),
+      new webpack.NamedModulesPlugin()
     ].concat(isDev
       ? [new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),]
@@ -158,8 +173,10 @@ module.exports = env => {
             evaluate: true,
             if_return: true,
             join_vars: true,
+            drop_console: true,
           },
           output: { comments: false },
+          sourceMap: true
         })]
     ),
 

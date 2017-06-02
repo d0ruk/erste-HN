@@ -1,1 +1,20 @@
 @import "reset-css/reset.css";
+
+.button {
+  border: 5px solid red;
+  background: none;
+  box-sizing: content-box;
+  color: inherit;
+  cursor: default;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  appearance: button;
+  user-select: none;
+
+  &::focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
