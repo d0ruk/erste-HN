@@ -6,6 +6,7 @@ const autoprefixer = require("autoprefixer");
 const nested = require("postcss-nested");
 const cssnext = require("postcss-cssnext")({ features: { autoprefixer: false }});
 const atImport = require("postcss-import");
+const lost = require("lost");
 
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -103,7 +104,7 @@ module.exports = env => {
                   plugins() {
                     return [
                       atImport({ addDependencyTo: webpack, path: [path.resolve(".", "src")] }),
-                      nested, cssnext, autoprefixer,
+                      nested, cssnext, autoprefixer, lost
                     ].filter(e => e);
                   }
                 }
@@ -149,7 +150,7 @@ module.exports = env => {
       new webpack.NamedModulesPlugin()
     ].concat(isDev
       ? [new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),]
+        new webpack.NoEmitOnErrorsPlugin()]
       : [new CleanWebpackPlugin(["build/**/*.*"]),
         new CopyWebpackPlugin([
           {
@@ -157,10 +158,10 @@ module.exports = env => {
             to: "js/eruda.min.js"
           },
         ]),
-        new webpack.LoaderOptionsPlugin({
-          minimize: true,
-          debug: false
-        }),
+        // new webpack.LoaderOptionsPlugin({
+        //   minimize: true,
+        //   debug: false
+        // }),
         new webpack.optimize.UglifyJsPlugin({
           compress: {
             warnings: false,

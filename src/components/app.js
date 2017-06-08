@@ -12,17 +12,18 @@ import {
 
 // import MainView from "./views/main-view";
 import Sidebar from "./sidebar"
+import Cards from "./cards"
 
 export default class Application {
-  constructor() {
-
+  constructor(data) {
     const vm = new ViewManager();
     // const mainView = new MainView(vm);
-    const sidebar = new Sidebar(history);
-
+    const sidebar = new Sidebar();
+    const cards = new Cards(data);
     sidebar.vm = vm;
+    cards.vm = vm;
     // sidebar.on("switchView", e => mainView.activateItemByName(e.view));
-    sidebar.render(document.body);
+    cards.render(document.body);
 
     // vm.setCurrentView(mainView);
   }

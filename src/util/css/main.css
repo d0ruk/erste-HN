@@ -1,4 +1,9 @@
 @import "reset-css/reset.css";
+@import "./spinner.css";
+
+:root {
+  --primary-color: green;
+}
 
 .button {
   border: 5px solid red;

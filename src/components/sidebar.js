@@ -21,7 +21,7 @@ const styles = {
   `
 }
 
-export default class extends Sidebar {
+export default class Foo extends Sidebar {
 
   template_items() {
     return `
