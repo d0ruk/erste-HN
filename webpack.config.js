@@ -3,10 +3,12 @@
 const path = require("path");
 
 const autoprefixer = require("autoprefixer");
-const nested = require("postcss-nested");
+const nesting = require("postcss-nesting");
 const cssnext = require("postcss-cssnext")({ features: { autoprefixer: false }});
 const atImport = require("postcss-import");
 const lost = require("lost");
+const cssnano = require("cssnano");
+const normalize = require("postcss-normalize");
 
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -30,7 +32,7 @@ module.exports = env => {
     },
 
     output: {
-      path: path.resolve(__dirname, "build"),
+      path: isDev ? __dirname : path.resolve(__dirname, "build"),
       filename: isDev
         ? "js/[name].js"
         : "js/[name]_[hash].js",
@@ -104,7 +106,8 @@ module.exports = env => {
                   plugins() {
                     return [
                       atImport({ addDependencyTo: webpack, path: [path.resolve(".", "src")] }),
-                      nested, cssnext, autoprefixer, lost
+                      normalize, nesting, lost,
+                      cssnext, autoprefixer, cssnano
                     ].filter(e => e);
                   }
                 }
@@ -192,18 +195,15 @@ module.exports = env => {
     target: "web",
     devtool: isDev ? "inline-source-map" : "hidden-source-map",
     devServer: {
-      contentBase: path.resolve(__dirname, "build"),
+      contentBase: path.resolve(__dirname),
       open: true,
       port: 7777,
       inline: true,
-      // stats: "verbose",
       historyApiFallback: true,
       hot: true,
       noInfo: true,
-      watchOptions: {
-        aggregateTimeout: 700,
-        poll: 1000
-      },
+      lazy: false,
+      watchOptions: { poll: 5000 },
       setup(app) {
         app.get("/__env", (req, res) => {
           res.json(process.env);

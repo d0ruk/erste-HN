@@ -2,7 +2,8 @@ const endpoints = {
   new: "https://hacker-news.firebaseio.com/v0/newstories.json",
   top: "https://hacker-news.firebaseio.com/v0/topstories",
   best: "https://hacker-news.firebaseio.com/v0/beststories",
-  item: id => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+  item: id => `https://hacker-news.firebaseio.com/v0/item/${id}.json`,
+  user: name => `https://hacker-news.firebaseio.com/v0/user/${name}.json`,
 }
 
 function getStories(arr) {

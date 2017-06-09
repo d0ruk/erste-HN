@@ -5,16 +5,22 @@
 }
 
 .card {
-  /*display: flex;*/
-  border: .3rem solid red;
+  display: flex;
+  flex-direction: column;
+  border: .2rem solid blue;
   margin: .5rem 0;
   padding: .5rem;
 
-  a:first-child {
+  & a {
     text-decoration: none;
+
+    &:hover {
+      color: red;
+    }
   }
 
-  storytitle {
-    /*margin: .7rem;*/
+  & content {
+    display: block;
+    margin: .7rem;
   }
 }

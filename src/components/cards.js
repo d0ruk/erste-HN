@@ -12,12 +12,12 @@ class Card extends Component {
 
     return `
       <div class=${styles.card}>
-        <storytitle>
-          <a href=${url} target="_blank">
-            <h1>${title}</h1>
-          </a>
-        </storytitle>
-        <story-summary>
+        <content>
+          <h1>
+            <a href=${url} target="_blank">${title}</a>
+          </h1>
+        </content>
+        <summary>
           <span>${score} points</span>
           <span>
             <a href=https://news.ycombinator.com/user?id=${by}>
@@ -29,25 +29,20 @@ class Card extends Component {
               <span class="tag">${new Date(time)}</span>
             </a>
           </span>
-        </story-summary>
+        </summary>
       </div>`
   }
 
   get events() {
     return {
       click: {
-        h2: this.clicked,
-        ".tag": this.tagged,
+        content: this.clicked,
       }
     }
   }
 
   clicked() {
     console.log("clicked on", this.card.id);
-  }
-
-  tagged() {
-    console.log("got tagged");
   }
 }
 
@@ -62,6 +57,6 @@ export default class Cards extends Component {
       .filter(e => e)
       .map(e => new Card(e));
 
-    return `<div class=${styles.container}>${cards}</div>`;
+    return `<cards class=${styles.container}>${cards}</cards>`;
   }
 }
