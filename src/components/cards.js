@@ -2,9 +2,10 @@ import { Component } from "erste"
 import styles from "./cards.css"
 
 class Card extends Component {
-  constructor(card) {
+  constructor(card, idx) {
     super();
     this.card = card;
+    this.idx = idx;
   }
 
   template() {
@@ -12,6 +13,7 @@ class Card extends Component {
 
     return `
       <div class=${styles.card}>
+        <idx>${this.idx}</idx>
         <content>
           <h1>
             <a href=${url} target="_blank">${title}</a>
@@ -52,11 +54,17 @@ export default class Cards extends Component {
     this.data = data;
   }
 
-  template() {
-    const cards = this.data
+  onAfterRender() {
+    this.data
       .filter(e => e)
-      .map(e => new Card(e));
+      .map((c, idx) => new Card(c, idx))
+      .map(card => {
+        // renders unordered ?
+        card.render(this.el);
+      });
+  }
 
-    return `<cards class=${styles.container}>${cards}</cards>`;
+  template() {
+    return `<cards class=${styles.container}></cards>`;
   }
 }
