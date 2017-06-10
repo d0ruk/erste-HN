@@ -23,7 +23,7 @@ export default class Application {
     sidebar.vm = vm;
     cards.vm = vm;
     // sidebar.on("switchView", e => mainView.activateItemByName(e.view));
-    cards.render(document.body);
+    cards.render(document.getElementById("app"));
 
     // vm.setCurrentView(mainView);
   }
