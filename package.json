@@ -93,6 +93,9 @@
     "env": {
       "browser": true
     },
+    "globals": {
+      "Promise": true
+    },
     "rules": {
       "strict": "off",
       "indent": [

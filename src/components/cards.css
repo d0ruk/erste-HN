@@ -1,15 +1,14 @@
 .container {
   /*lost-waffle: 1/3;*/
-  lost-column: 1/2 3;
-  /*lost-utility: clearfix;*/
+  lost-column: 1/2 1;
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  border: .2rem solid blue;
   margin: .5rem 0;
   padding: .5rem;
+  background-color: #ff6600;
 
   & a {
     text-decoration: none;
@@ -20,7 +19,6 @@
   }
 
   & content {
-    display: block;
-    margin: .7rem;
+    /*margin: .7rem;*/
   }
 }
