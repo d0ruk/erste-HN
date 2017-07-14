@@ -1,8 +1,7 @@
 {
   "name": "erste-HN",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build": "webpack --hide-modules --env 'production'",
     "dev": "webpack-dev-server --env 'development'"
@@ -17,12 +16,15 @@
     "news"
   ],
   "author": "Doruk Kutlu",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d0ruk/erste-HN"
+  },
+  "license": "MIT",
   "dependencies": {
     "erste": "^1.2.9",
     "eruda": "^1.2.3",
     "es6-promise": "^4.1.0",
-    "lost": "^8.0.0",
     "mobx": "^3.1.9",
     "whatwg-fetch": "^2.0.3"
   },
@@ -41,19 +43,20 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
     "cssnano": "^4.0.0-rc.0",
-    "eslint": "^3.19.0",
-    "extract-text-webpack-plugin": "^2.1.0",
+    "eslint": "^4.2.0",
+    "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.28.0",
-    "postcss-cssnext": "^2.11.0",
+    "lost": "^8.0.0",
+    "postcss-cssnext": "^3.0.2",
     "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.5",
     "postcss-nesting": "^4.0.1",
-    "postcss-normalize": "^3.0.0",
-    "style-loader": "^0.17.0",
+    "postcss-normalize": "^4.0.0",
+    "style-loader": "^0.18.2",
     "url-loader": "^0.5.8",
-    "webpack": "^2.5.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack": "^3.2.0",
+    "webpack-dev-server": "^2.5.1"
   },
   "babel": {
     "presets": [
@@ -66,7 +69,6 @@
               "not ie < 11"
             ]
           },
-          "modules": false,
           "loose": true,
           "useBuiltIns": true
         }
@@ -94,7 +96,8 @@
       "browser": true
     },
     "globals": {
-      "Promise": true
+      "Promise": true,
+      "module": true
     },
     "rules": {
       "strict": "off",

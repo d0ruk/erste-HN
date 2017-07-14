@@ -28,3 +28,7 @@ export default class Application {
     // vm.setCurrentView(mainView);
   }
 }
+
+if (module.hot) {
+  module.hot.accept();
+}

@@ -6,7 +6,7 @@ import loadPolyfills from "loadpoly"
 const shouldPolyfill = [
   {
     test: () => window.fetch,
-    load: import("whatwg-fetch")
+    load: import(/* webpackChunkName: "whatwg-fetch" */ "whatwg-fetch")
   },
 ];
 

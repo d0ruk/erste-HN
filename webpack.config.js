@@ -1,5 +1,4 @@
 /* eslint-env node */
-
 const path = require("path");
 
 const autoprefixer = require("autoprefixer");
@@ -19,16 +18,15 @@ const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 
 module.exports = env => {
   const isDev = env === "development";
+  const minimizeCSS = isDev ? null : cssnano;
 
   return {
     context: __dirname,
 
     entry: {
       main: isDev
-      ? ["webpack-dev-server/client?http://localhost:7777",
-        "babel-polyfill", "./src/index"]
+      ? ["./src/index"]
       : ["es6-promise", "./src/index"],
-      vendor: ["erste", "mobx"]
     },
 
     output: {
@@ -38,10 +36,10 @@ module.exports = env => {
         : "js/[name]_[hash].js",
       sourceMapFilename: isDev
         ? "js/[name].map"
-        : "js/[name]_[chunkhash].map",
+        : "js/[name]_[hash].map",
       chunkFilename: isDev
         ? "js/[name].js"
-        : "js/[name]_[chunkhash].js",
+        : "js/[name]_[hash].js",
       hashDigestLength: 7,
       publicPath: "/"
     },
@@ -63,7 +61,7 @@ module.exports = env => {
           loader: "url-loader",
           query: {
             name: "static/images/[name].[hash:7].[ext]",
-            limit: 10240
+            limit: 1024 * 10
           }
         },
         {
@@ -78,7 +76,7 @@ module.exports = env => {
           loader: "url-loader",
           query: {
             name: "static/fonts/[name].[hash:7].[ext]",
-            limit: 10240
+            limit: 1024 * 10
           }
         },
         {
@@ -107,12 +105,13 @@ module.exports = env => {
                     return [
                       atImport({ addDependencyTo: webpack, path: [path.resolve(".", "src")] }),
                       normalize, nesting, lost,
-                      cssnext, autoprefixer, cssnano
+                      cssnext, autoprefixer, minimizeCSS
                     ].filter(e => e);
                   }
                 }
               }
-            ]
+            ],
+            // sourceMap: true // WTF ??
           }),
         },
       ]
@@ -143,16 +142,17 @@ module.exports = env => {
       }),
       new CaseSensitivePathsPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
-        names: ["vendor"],
-        minChunks: Infinity
+        name: ["vendor"],
+        minChunks: m => m.context && m.context.includes("node_modules")
       }),
+      new webpack.optimize.CommonsChunkPlugin({ name: ["bootstrap"] }),
       new ExtractTextPlugin({
         filename: "css/[name]_[hash:7].css",
         disable: isDev,
       }),
-      new webpack.NamedModulesPlugin()
     ].concat(isDev
       ? [new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
         new webpack.NoEmitOnErrorsPlugin()]
       : [new CleanWebpackPlugin(["build/**/*.*"]),
         new CopyWebpackPlugin([
@@ -161,10 +161,6 @@ module.exports = env => {
             to: "js/eruda.min.js"
           },
         ]),
-        // new webpack.LoaderOptionsPlugin({
-        //   minimize: true,
-        //   debug: false
-        // }),
         new webpack.optimize.UglifyJsPlugin({
           compress: {
             warnings: false,
@@ -197,11 +193,21 @@ module.exports = env => {
     devServer: {
       contentBase: path.resolve(__dirname),
       open: true,
+      openPage: "",
       port: 7777,
       inline: true,
-      historyApiFallback: true,
       hot: true,
-      noInfo: true,
+      stats: {
+        assets: true,
+        children: false,
+        chunks: false,
+        hash: false,
+        modules: false,
+        publicPath: false,
+        timings: true,
+        version: false,
+        warnings: true,
+      },
       lazy: false,
       watchOptions: { poll: 5000 },
       setup(app) {
