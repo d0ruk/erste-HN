@@ -1,10 +1,13 @@
 import { Component } from "erste"
 import styles from "./cards.css"
+import distanceInWordsStrict from "date-fns/distance_in_words_strict"
+import { crawlDescendants } from "util/js/api"
 
-class Card extends Component {
+export default class Card extends Component {
   constructor(card, idx) {
     super();
     this.card = card;
+    // crawlDescendants(card.kids)
     this.idx = idx;
   }
 
@@ -20,7 +23,7 @@ class Card extends Component {
           </h1>
         </content>
         <summary>
-          <span>${score} points</span>
+          <span>${score} ${score ? "points" : "point"}</span>
           <span>
             <a href=https://news.ycombinator.com/user?id=${by}>
               ${by}
@@ -28,9 +31,10 @@ class Card extends Component {
           </span>
           <span>
             <a href=https://news.ycombinator.com/item?id=${id}>
-              <span class="tag">${new Date(time)}</span>
+              <span>${descendants} comments</span>
             </a>
           </span>
+          <span class="timestamp">${distanceInWordsStrict(new Date(time*1000), Date.now())} ago</span>
         </summary>
       </div>`
   }
@@ -45,26 +49,5 @@ class Card extends Component {
 
   clicked() {
     console.log("clicked on", this.card.id);
-  }
-}
-
-export default class Cards extends Component {
-  constructor(data = []) {
-    super();
-    this.data = data;
-  }
-
-  onAfterRender() {
-    this.data
-      .filter(e => e)
-      .map((c, idx) => new Card(c, idx))
-      .map(card => {
-        // renders unordered ?
-        card.render(this.el);
-      });
-  }
-
-  template() {
-    return `<cards class=${styles.container}></cards>`;
   }
 }

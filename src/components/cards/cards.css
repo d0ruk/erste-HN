@@ -18,7 +18,21 @@
     }
   }
 
-  & content {
-    /*margin: .7rem;*/
+  & summary {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    & span {
+      margin: 0 .5rem;
+
+      &:first-child {
+        margin-left: .2rem;
+      }
+
+      &:last-child {
+        margin-right: .2rem;
+      }
+    }
   }
 }
