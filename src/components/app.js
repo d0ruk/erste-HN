@@ -29,6 +29,7 @@ export default class Application {
   }
 }
 
+// broken HMR.. re-render?
 if (module.hot) {
   module.hot.accept();
 }

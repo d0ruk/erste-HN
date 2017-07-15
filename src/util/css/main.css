@@ -3,8 +3,3 @@
 :root {
   --primary-color: green;
 }
-
-body {
-  width: 100vw;
-  height: 100vh;
-}
