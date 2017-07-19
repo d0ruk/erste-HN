@@ -1,7 +1,7 @@
 {
   "name": "erste-HN",
-  "version": "0.0.8",
-  "description": "",
+  "version": "0.0.9",
+  "description": "HN clone built with erste.js",
   "scripts": {
     "build": "webpack --hide-modules --env 'production'",
     "dev": "webpack-dev-server --env 'development'"
@@ -22,10 +22,12 @@
   },
   "license": "MIT",
   "dependencies": {
+    "date-fns": "^1.28.5",
     "erste": "^1.2.9",
     "eruda": "^1.2.3",
     "es6-promise": "^4.1.0",
     "mobx": "^3.1.9",
+    "p-map": "^1.1.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -33,11 +35,14 @@
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-regenerator": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.4.0",
+    "babili-webpack-plugin": "^0.1.2",
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
@@ -85,11 +90,11 @@
     "extends": "eslint:recommended",
     "parserOptions": {
       "sourceType": "module",
-      "ecmaVersion": 6,
+      "ecmaVersion": 8,
       "ecmaFeatures": {
         "arrowFunctions": true,
         "blockBindings": true,
-        "generators": false
+        "generators": true
       }
     },
     "env": {

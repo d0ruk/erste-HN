@@ -16,16 +16,18 @@ import Cards from "./cards"
 
 export default class Application {
   constructor(data) {
-    const vm = new ViewManager();
+    const vm = new ViewManager(document.getElementById("app"));
     // const mainView = new MainView(vm);
     const sidebar = new Sidebar();
     const cards = new Cards(data);
     sidebar.vm = vm;
     cards.vm = vm;
     // sidebar.on("switchView", e => mainView.activateItemByName(e.view));
-    cards.render(document.getElementById("app"));
 
-    // vm.setCurrentView(mainView);
+    vm.setCurrentView(sidebar);
+    // setTimeout(() => {
+    //   vm.setCurrentView(cards);
+    // }, 1000);
   }
 }
 
