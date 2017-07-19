@@ -15,6 +15,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
+const BabiliPlugin = require("babili-webpack-plugin");
 
 module.exports = env => {
   const isDev = env === "development";
@@ -25,8 +26,8 @@ module.exports = env => {
 
     entry: {
       main: isDev
-      ? ["./src/index"]
-      : ["es6-promise", "./src/index"],
+        ? ["babel-polyfill", "./src/index"]
+        : ["babel-polyfill", "es6-promise", "./src/index"],
     },
 
     output: {
@@ -161,23 +162,7 @@ module.exports = env => {
             to: "js/eruda.min.js"
           },
         ]),
-        new webpack.optimize.UglifyJsPlugin({
-          compress: {
-            warnings: false,
-            screw_ie8: true,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            if_return: true,
-            join_vars: true,
-            drop_console: true,
-          },
-          output: { comments: false },
-          sourceMap: true
-        })]
+        new BabiliPlugin()]
     ),
 
     resolve: {
