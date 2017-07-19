@@ -1,8 +1,8 @@
-import { Component } from "erste"
+import { View } from "erste"
 import Card from "./card"
 import styles from "./cards.css"
 
-export default class Cards extends Component {
+export default class Cards extends View {
   constructor(data = []) {
     super();
     this.data = data;

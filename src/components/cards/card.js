@@ -1,13 +1,12 @@
 import { Component } from "erste"
 import styles from "./cards.css"
 import distanceInWordsStrict from "date-fns/distance_in_words_strict"
-import { crawlDescendants } from "util/js/api"
+import { getComments } from "util/js/api"
 
 export default class Card extends Component {
   constructor(card, idx) {
     super();
     this.card = card;
-    // crawlDescendants(card.kids)
     this.idx = idx;
   }
 
@@ -29,22 +28,27 @@ export default class Card extends Component {
               ${by}
             </a>
           </span>
-          <span>
+          <span class="descendants">
             <a href=https://news.ycombinator.com/item?id=${id}>
-              <span>${descendants} comments</span>
+              <span>${descendants ? `${descendants} comments` : "discuss"}</span>
             </a>
           </span>
           <span class="timestamp">${distanceInWordsStrict(new Date(time*1000), Date.now())} ago</span>
         </summary>
-      </div>`
+      </div>`;
   }
 
   get events() {
     return {
       click: {
         content: this.clicked,
+        ".descendants": this.goToComments
       }
     }
+  }
+
+  goToComments() {
+    getComments(this.card.kids).then(console.dir)
   }
 
   clicked() {
