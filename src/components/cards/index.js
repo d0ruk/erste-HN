@@ -3,13 +3,13 @@ import Card from "./card"
 import styles from "./cards.css"
 
 export default class Cards extends View {
-  constructor(data = []) {
+  constructor(cards = []) {
     super();
-    this.data = data;
+    this.cards = cards;
   }
 
   onAfterRender() {
-    this.data
+    this.cards
       .filter(e => e)
       .map((c, idx) => new Card(c, idx))
       .map(card => {

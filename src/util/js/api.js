@@ -70,6 +70,8 @@ async function crawl(elem) {
   return tree;
 }
 
-export function getComments(kids) {
-  return pMap(kids, crawl, { concurrency: 1 });
+export function getComments(kids = []) {
+  // infinite concurrency might be unrealistic
+  return pMap(kids.filter(e => e), crawl, { concurrency: Infinity })
+    .then(arr => arr.filter(e => e));
 }

@@ -1,7 +1,7 @@
 import { Component } from "erste"
 import styles from "./cards.css"
 import distanceInWordsStrict from "date-fns/distance_in_words_strict"
-import { getComments } from "util/js/api"
+// import { getComments } from "util/js/api"
 
 export default class Card extends Component {
   constructor(card, idx) {
@@ -48,7 +48,8 @@ export default class Card extends Component {
   }
 
   goToComments() {
-    getComments(this.card.kids).then(console.dir)
+    // var now = Date.now()
+    // getComments(this.card.kids).then(console.dir).then(() => console.log(Date.now() - now))
   }
 
   clicked() {

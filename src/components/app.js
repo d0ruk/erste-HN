@@ -1,8 +1,5 @@
 import {
-  // Component,
   ViewManager,
-  // View,
-  // locale,
   // Sidebar,
   // TabView,
   // NavBar,
@@ -10,28 +7,37 @@ import {
   // InfiniteScroll,
 } from "erste";
 
-// import MainView from "./views/main-view";
-import Sidebar from "./sidebar"
-import Cards from "./cards"
+// import Sidebar from "./sidebar"
+// import Cards from "./cards"
+// import Comments from "./comments"
 
 export default class Application {
-  constructor(data) {
-    const vm = new ViewManager(document.getElementById("app"));
-    // const mainView = new MainView(vm);
-    const sidebar = new Sidebar();
-    const cards = new Cards(data);
-    sidebar.vm = vm;
-    cards.vm = vm;
+  constructor(rootEl) {
+    const vm = this.vm = new ViewManager(rootEl);
+    // const sidebar = new Sidebar();
+    // const cards = new Cards(data);
+    // sidebar.vm = vm;
+    // cards.vm = vm;
     // sidebar.on("switchView", e => mainView.activateItemByName(e.view));
 
-    vm.setCurrentView(sidebar);
+    // vm.setCurrentView(cards);
     // setTimeout(() => {
-    //   vm.setCurrentView(cards);
+    //   vm.pull(sidebar, true);
+    //   setTimeout(() => {
+    //     const comments = new Comments();
+    //     // comments.vm = vm;
+    //     this.setView(comments)
+    //   }, 500);
     // }, 1000);
   }
+
+  setView(view) {
+    this.vm.setCurrentView(view);
+  }
+
+
 }
 
-// broken HMR.. re-render?
 if (module.hot) {
   module.hot.accept();
 }
